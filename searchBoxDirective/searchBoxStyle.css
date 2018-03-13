@@ -1,0 +1,28 @@
+.search-box {
+    padding: 20px;
+    width: 50%;
+    min-width: 300px;
+}
+
+.search-box .suggestion-list {
+    border: 1px solid lightgrey;
+    position: absolute;
+    width: 34%;
+    background-color: white;
+}
+
+.search-box .suggestion-list p {
+    padding: 2px 0 2px 10px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.search-box .suggestion-list b span {
+    font-weight: normal;
+    color: black !important;
+}
+
+.search-box .suggestion-list p:hover {
+    color: white;
+    background-color: blue;
+}

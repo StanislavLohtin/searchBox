@@ -1,0 +1,13 @@
+<div class="search-box">
+    <input title="Search box"
+           class="form-control"
+           placeholder="{{ 'ENTER_TEXT' | translate }}"
+           ng-model="text"
+           ng-change="onChange()"
+    />
+    <div class="suggestion-list" ng-if="suggestions.length">
+        <p ng-repeat="suggestion in suggestions" ng-click="onSuggestionClick(suggestion)">
+            <b ng-bind-html="suggestion.highlighted"></b>
+        </p>
+    </div>
+</div>

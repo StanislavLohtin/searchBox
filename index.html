@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search box app</title>
+    <link rel="stylesheet" href="searchBoxDirective/searchBoxStyle.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body ng-app="searchBoxApp" ng-controller="searchBoxCtrl">
+    <h2> Test app </h2>
+    <div class="row">
+        <div class="col-xs-3">
+            <label> {{ 'SELECT_LANGUAGE' | translate }}: </label>
+        </div>
+        <div class="col-xs-2">
+            <select class="form-control"
+                    ng-options="language as language.label for language in languages track by language.id"
+                    ng-model="selectedLanguage"
+                    ng-change="changeLanguage()">
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <search-box text="text" search-function="searchFunction" search-trigger="1" color="'yellow'"></search-box>
+    </div>
+
+</body>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
+<script type="text/javascript" src="app.js"></script>
+<script type="text/javascript" src="searchBoxDirective/searchBoxDirective.js"></script>
+
+
+</html>
