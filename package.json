@@ -1,0 +1,28 @@
+{
+  "name": "searchbox",
+  "version": "1.0.0",
+  "description": "test task",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest",
+    "watch": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StanislavLokhtin/searchBox.git"
+  },
+  "author": "stanislav lohtin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/StanislavLokhtin/searchBox/issues"
+  },
+  "homepage": "https://github.com/StanislavLokhtin/searchBox#readme",
+  "devDependencies": {
+    "angular-mocks": "^1.6.9",
+    "jest-cli": "^22.4.3"
+  },
+  "dependencies": {
+    "angular": "^1.6.9",
+    "lodash": "^4.17.5"
+  }
+}

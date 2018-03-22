@@ -1,6 +1,6 @@
-if (app !== undefined
-    && app !== null) {
-    app.directive('searchBox', [function () {
+angular.module('searchBoxDirective', [])
+    .directive('searchBox', [function () {
+        console.log('entered directive');
         return {
             scope: {
                 text: '=',
@@ -9,38 +9,50 @@ if (app !== undefined
                 color: '='
             },
             restrict: 'E',
-            templateUrl: 'searchBoxDirective/searchBoxTemplate.html',
+            template: '<div class="search-box">\n' +
+            '    <input title="Search box"\n' +
+            '           class="form-control"\n' +
+            '           placeholder="{{ \'ENTER_TEXT\' | translate }}"\n' +
+            '           ng-model="text"\n' +
+            '           ng-change="onChange()"\n' +
+            '    />\n' +
+            '    <div class="suggestion-list" ng-if="suggestions.length">\n' +
+            '        <p ng-repeat="suggestion in suggestions" ng-click="onSuggestionClick(suggestion)">\n' +
+            '            <b ng-bind-html="suggestion.highlighted"></b>\n' +
+            '        </p>\n' +
+            '    </div>\n' +
+            '</div>',
             controller: ['$scope', function ($scope) {
-                $scope.text = '';
+                console.log('entered controller');
 
                 updateColors();
 
                 $scope.onChange = function () {
-                    if (!$scope.text || $scope.text.length < $scope.searchTrigger) {
-                        $scope.suggestions = [];
-                        return;
-                    }
-                    search();
+                    return new Promise(function (resolve, reject) {
+                        if (!$scope.text || $scope.text.length < $scope.searchTrigger) {
+                            $scope.suggestions = [];
+                            return;
+                        }
+                        $scope.searchFunction($scope.text).then(function (data) {
+                            $scope.suggestions = [];
+                            _.forEach(data, function (result) {
+                                $scope.suggestions.push({
+                                    highlighted: result.split($scope.text).join('<span>' + $scope.text + '</span>'),
+                                    text: result
+                                });
+                            });
+                            resolve($scope.suggestions);
+                        }, function (e) {
+                            console.log('search function failed ' + e);
+                            reject();
+                        });
+                    });
                 };
 
                 $scope.onSuggestionClick = function(suggestion) {
                     $scope.text = suggestion.text;
                     $scope.suggestions = [];
                 };
-
-                function search() {
-                    $scope.searchFunction($scope.text).then(function (data) {
-                        $scope.suggestions = [];
-                        _.forEach(data, function (result) {
-                            $scope.suggestions.push({
-                                highlighted: result.split($scope.text).join('<span>' + $scope.text + '</span>'),
-                                text: result
-                            });
-                        });
-                    }, function (e) {
-                        console.log('search function failed ' + e);
-                    });
-                }
 
                 function updateColors() {
                     var style = document.createElement('style');
@@ -55,4 +67,3 @@ if (app !== undefined
             }]
         };
     }]);
-}
